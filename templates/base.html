@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assegna Aule | {% block title %}{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS Personalizzato -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">AssegnaAule</a>
+
+    <!-- Bottone toggle per mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Contenitore voci di menu -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+        {% if current_user.is_authenticated and current_user.id != 0 %}
+        <a class="nav-link" href="{{ url_for('richiesta') }}">Richiesta</a>
+        <a class="nav-link" href="{{ url_for('myaccount') }}">Profilo</a>
+        {% endif %}
+        {% if current_user.is_authenticated and current_user.id == 0 %}
+          <a class="nav-link" href="{{ url_for('assegna_aule') }}">Assegna Aule</a>
+          
+        {% endif %}
+        {% if current_user.is_authenticated %}
+          
+          <a class="nav-link" href="{{ url_for('visualizza_assegnazioni') }}">Visualizza Assegnazioni</a>
+          <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a class="nav-link" href="{{ url_for('signup') }}">Registrati</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+        <!-- Corpo principale -->
+        <main class="content container my-4">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Footer -->
+        <footer class="custom-footer">
+            <div class="container">
+                <p>&copy; 2025 - Greta Colella</p>
+                <p>Contatti: <a href="mailto:s294353@studenti.polito.it">s294353@studenti.polito.it</a></p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

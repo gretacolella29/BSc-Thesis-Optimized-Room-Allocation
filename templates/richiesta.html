@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Richiesta Aula{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div id = "form" class="card-header text-center">
+                <h3>Richiedi un'aula</h3>
+            </div>
+            <div  class="card-body">
+                <form method="POST" action="{{ url_for('richiesta') }}">
+                    {{ form.hidden_tag() if form else '' }}
+
+                    <!-- Input numerico per la capienza -->
+                    <div class="mb-3">
+                        <label for="capienza" class="form-label">Capienza richiesta</label>
+                        <input type="number" class="form-control" id="capienza" name="capienza" min="1" required>
+                    </div>
+
+                    <!-- Slot orari per ogni giorno -->
+                    <div class="mb-3">
+                        <label class="form-label">Seleziona gli slot per ciascun giorno</label>
+
+                        {% set giorni = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì"] %}
+                        {% set fasce = [
+                            ("08:30", "10:00"),
+                            ("10:00", "11:30"),
+                            ("11:30", "13:00"),
+                            ("13:00", "14:30"),
+                            ("14:30", "16:00"),
+                            ("16:00", "17:30"),
+                            ("17:30", "19:00")
+                        ] %}
+
+                        {% for giorno in giorni %}
+                        <div class="card mb-2">
+                            <div class="card-header fw-bold">{{ giorno }}</div>
+                            <div class="card-body">
+                                {% for fascia in fasce %}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="slot"
+                                           value="{{ giorno }}_{{ fascia[0] }}-{{ fascia[1] }}"
+                                           id="{{ giorno }}_slot{{ loop.index0 }}">
+                                    <label class="form-check-label" for="{{ giorno }}_slot{{ loop.index0 }}">
+                                        {{ fascia[0] }} - {{ fascia[1] }}
+                                    </label>
+                                </div>
+                                {% endfor %}
+
+                                <!-- Checkboxes caratteristiche aula per ogni giorno -->
+                                <div class="form-check mt-2">
+                                    <input class="form-check-input" type="checkbox" name="prese_{{ giorno }}" id="prese_{{ giorno }}">
+                                    <label class="form-check-label" for="prese_{{ giorno }}">Prese</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="pc_{{ giorno }}" id="pc_{{ giorno }}">
+                                    <label class="form-check-label" for="pc_{{ giorno }}">PC</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" name="proiettore_{{ giorno }}" id="proiettore_{{ giorno }}">
+                                    <label class="form-check-label" for="proiettore_{{ giorno }}">Proiettore</label>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Invia richiesta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Il Mio Account{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header text-center">
+                    <h3>Profilo Utente</h3>
+                </div>
+                <div class="card-body">
+                    <p><strong>Nome:</strong> {{ current_user.nome }}</p>
+                    <p><strong>Cognome:</strong> {{ current_user.cognome }}</p>
+                    <p><strong>Email:</strong> {{ current_user.email }}</p>
+                </div>
+            </div>
+
+            
+            <div class="card shadow-sm">
+                <div class="card-header text-center">
+                    <h3>Le tue Richieste</h3>
+                </div>
+                <div class="card-body">
+                    {% if richieste and richieste|length > 0 %}
+                       {% for richiesta in richieste %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Richiesta ID: {{ richiesta.id }}</h5>
+                                <p class="card-text"><strong>Capienza Richiesta:</strong> {{ richiesta.capienza }}</p>
+                                <p class="card-text"><strong>Giorno Richiesto:</strong> {{ richiesta.giorno }}</p>
+                                <p class="card-text"><strong>Slot Richiesti:</strong> {{ richiesta.slots }}</p>
+                                {%if richiesta.prese == 1%}
+                                <p class="card-text">Prese richieste</p>
+                                {% endif %}
+                                {%if richiesta.pc == 1%}
+                                <p class="card-text">Pc richiesti</p>
+                                {% endif %}
+                                {%if richiesta.proiettore == 1%}
+                                <p class="card-text">Proiettore richiesto</p>
+                                {% endif %}
+                                {% if richiesta.aula %}
+                                    <p class="card-text text-success"><strong>Aula Assegnata:</strong> Aula {{ richiesta.aula }} ({{ richiesta.capienza_aula }} posti)</p>
+                                    {%if richiesta.prese_aula == 1%}
+                                    <p class="card-text">Prese presenti</p>
+                                    {% endif %}
+                                    {%if richiesta.pc_aula == 1%}
+                                    <p class="card-text">Pc presenti</p>
+                                    {% endif %}
+                                    {%if richiesta.proiettore_aula == 1%}
+                                    <p class="card-text">Proiettore presente</p>
+                                    {% endif %}
+                                {% else %}
+                                    <p class="card-text text-danger"><strong>Aula Assegnata:</strong> Non ancora assegnata</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    {% else %}
+                        <p class="text-center">Non hai ancora effettuato richieste.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

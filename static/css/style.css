@@ -1,0 +1,89 @@
+.signup-form {
+    background-color: #f8f9fa; /* Bootstrap bg-light */
+    padding: 1.5rem; /* Bootstrap p-4 */
+    border: 1px solid #dee2e6; /* Bootstrap border */
+    border-radius: 0.375rem; /* Bootstrap rounded */
+    width: 100%;
+    max-width: 400px;
+    margin: 2rem auto;
+}
+
+.back-link {
+    display: inline-block;
+    margin: 1rem 0;
+}
+
+.custom-footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: auto;
+}
+
+
+
+body {
+    background-image: url("../sfondo.png"); /* oppure "../img/A_digital_image_exhibits_curved,_overlapping_layer.png" */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+}
+
+.custom-footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+  background-color: #fafafa;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.07);
+  transform: translateY(0);
+}
+
+.btn:disabled,
+.btn.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+

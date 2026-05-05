@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if current_user.is_authenticated %}
+    <div class="home-dashboard">
+        <h2>Benvenuto {{ current_user.nome }}!</h2>
+        <p class="lead">Cosa vuoi fare?</p>
+        {% if current_user.id == 0%}
+            <a href="{{ url_for('assegna_aule') }}" class="btn btn-primary">Assegna aule</a>
+
+            {% if richieste_admin %}
+<div class="container mt-4">
+    <h2 class="text-center">Tutte le Richieste</h2>
+    <table class="table table-bordered table-hover table-striped bg-light-subtle">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Professore</th>
+                <th>Capienza</th>
+                <th>Giorno</th>
+                <th>Slot</th>
+                <th>Prese</th>
+                <th>PC</th>
+                <th>Proiettore</th>
+                <th>Aula Assegnata</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in richieste_admin %}
+            <tr>
+                <td>{{ r.id }}</td>
+                <td>{{ r.professore }}</td>
+                <td>{{ r.capienza }}</td>
+                <td>{{ r.giorno }}</td>
+                <td>{{ r.slots }}</td>
+                <td>{{ 'Sì' if r.prese else 'No' }}</td>
+                <td>{{ 'Sì' if r.pc else 'No' }}</td>
+                <td>{{ 'Sì' if r.proiettore else 'No' }}</td>
+                <td>{{ r.aula }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="container mt-4">
+    <h4 class="text-center">Nessuna richiesta presente.</h4>
+</div>
+{% endif %}
+
+        {% else %}
+        <a href="{{ url_for('richiesta') }}" class="btn">Fai una Nuova Richiesta</a>
+        <a href="{{ url_for('myaccount') }}" class="btn">Visualizza le Tue Richieste</a>
+        <a href="{{ url_for('logout') }}" class="btn">Esci</a>
+        {% endif %}
+    </div>
+    
+    {% else %}
+        <div class="row justify-content-center my-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Accedi</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="/login">
+                            {{ form.hidden_tag() if form else '' }}
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Accedi</button>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <p>Non hai un account? <a href="{{ url_for('signup') }}">Registrati</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Assegna Aule{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center my-4">Risultato Assegnazione Aule</h2>
+
+        <table class="table table-bordered table-hover table-striped bg-light-subtle">
+
+        <thead>
+            <tr>
+                <th>ID Richiesta</th>
+                <th>ID Aula Assegnata</th>
+                <th>Motivazione</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in risultati %}
+            <tr>
+                <td>{{ r.id_richiesta }}</td>
+                <td>{{ r.aula_assegnata if r.aula_assegnata else "Non assegnata" }}</td>
+                <td>{{ r.motivazione }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <a href="{{ url_for('home') }}" class="btn btn-primary mt-3">Torna alla Home</a>
+    </div>
+</div>
+{% endblock %}

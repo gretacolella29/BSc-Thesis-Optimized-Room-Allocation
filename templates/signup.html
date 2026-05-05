@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Iscriviti{% endblock %}
+
+{% block content %}
+<a href="/" class="back-link">Torna indietro</a>
+<div class="signup-form">
+    <form action="/signup" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="inputemail" class="form-label">Email</label>
+            <input type="email" class="form-control" name='email' id="inputemail">
+        </div>
+        <div class="mb-3">
+            <label for="inputPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" name='password' id="inputPassword">
+        </div>
+        <div class="mb-3">
+            <label for="inputnome" class="form-label">Nome</label>
+            <input type="text" class="form-control" name='nome' id="inputnome" placeholder="Mario">
+        </div>
+        <div class="mb-3">
+            <label for="inputcognome" class="form-label">Cognome</label>
+            <input type="text" class="form-control" name='cognome' id="inputcognome" placeholder="Rossi">
+        </div>
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Iscriviti</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

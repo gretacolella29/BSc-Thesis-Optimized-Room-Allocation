@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Visualizza Assegnazioni{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center my-4">Assegnazioni Aule Confermate</h2>
+
+    <table class="table table-bordered table-hover table-striped bg-light-subtle">
+
+        <thead>
+            <tr>
+                <th>ID Professore</th>
+                <th>Capienza Richiesta</th>
+                <th>ID Aula Assegnata</th>
+                <th>Capienza Aula</th>
+                <th>Slot Orari</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in risultati %}
+            <tr>
+                <td>{{ r.professore }}</td>
+                <td>{{ r.capienza_richiesta }}</td>
+                <td>{{ r.aula }}</td>
+                <td>{{ r.capienza_aula }}</td>
+                <td>{{ r.slot_descrizione }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('home') }}" class="btn btn-primary">Torna alla Home</a>
+    </div>
+</div>
+{% endblock %}
